@@ -138,9 +138,9 @@ public class LetterMaker {
         stringBuilder.append(prefix);
         for (var url: urls) {
             stringBuilder.append(letterProperties.getProperty(LIST_ELEMENT_PREFIX_PROPERTY))
-                    .append(url)
-                    .append(letterProperties.getProperty(LETTER_PART_SEPARATOR_PROPERTY));
+                    .append(url);
         }
+        stringBuilder.append(letterProperties.getProperty(LETTER_PART_SEPARATOR_PROPERTY));
         return stringBuilder.toString();
     }
 }
