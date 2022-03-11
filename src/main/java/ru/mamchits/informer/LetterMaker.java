@@ -102,7 +102,7 @@ public class LetterMaker {
      * @return               body of the letter
      */
     private String makeBody(Set<String> removedUrls, Set<String> newUrls, Set<String> modifiedUrls) {
-        if (removedUrls.isEmpty() && newUrls.isEmpty() && modifiedUrls.isEmpty()) {
+        if (allSetsAreEmpty(removedUrls, newUrls, modifiedUrls)) {
             return letterProperties.getProperty(NO_CHANGES_BODY_PROPERTY) +
                     letterProperties.getProperty(LETTER_PART_SEPARATOR_PROPERTY);
         }
@@ -111,6 +111,17 @@ public class LetterMaker {
                 makeUrlListString(letterProperties.getProperty(REMOVED_PAGES_PREFIX_PROPERTY), removedUrls) +
                 makeUrlListString(letterProperties.getProperty(NEW_PAGES_PREFIX_PROPERTY), newUrls) +
                 makeUrlListString(letterProperties.getProperty(MODIFIED_PAGES_PREFIX_PROPERTY), modifiedUrls);
+    }
+
+    /**
+     * Checks for emptiness of all sets
+     * @param  removedUrls   set of page URLs that are present only in the yesterday map
+     * @param  newUrls       set of page URLs that are present only in the today map
+     * @param  modifiedUrls  set of page URLs for which the HTML codes are different
+     * @return               True if all sets are empty
+     */
+    private boolean allSetsAreEmpty(Set<String> removedUrls, Set<String> newUrls, Set<String> modifiedUrls) {
+        return (removedUrls.isEmpty() && newUrls.isEmpty() && modifiedUrls.isEmpty());
     }
 
     /**
