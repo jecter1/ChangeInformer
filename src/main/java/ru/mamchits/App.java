@@ -37,6 +37,17 @@ public class App {
     private static final HashMap<URL, Document> yesterdayContent = new HashMap<>();
     private static final HashMap<URL, Document> todayContent = new HashMap<>();
 
+    private static URL stayed_url;
+    private static URL removed_url;
+    private static URL modified_url;
+    private static URL new_url;
+
+    private static Document stayed_html;
+    private static Document removed_html;
+    private static Document modified_old_html;
+    private static Document modified_new_html;
+    private static Document new_html;
+
     public static void main(String[] args) {
         fillHashMaps();
         ChangesInformer changeInformer = new ChangesInformer(LETTER_TEMPLATE_PROPERTIES_PATH);
@@ -45,33 +56,50 @@ public class App {
     }
 
     /**
-     * Fill both HashMaps with URLs and HTML codes for all possible cases
+     * Fill both HashMaps with values from the class constants
      */
     private static void fillHashMaps() {
-        URL stayed_url, removed_url, modified_url, new_url;
-        Document stayed_html, removed_html, modified_old_html, modified_new_html, new_html;
+        makeUrls();
+        makeDocuments();
+        putValuesIntoHashMaps();
+    }
+
+    /**
+     * Makes URLs from Strings
+     */
+    private static void makeUrls() {
         try {
             stayed_url = new URL(STAYED_URL_STRING);
             removed_url = new URL(REMOVED_URL_STRING);
             modified_url = new URL(MODIFIED_URL_STRING);
             new_url = new URL(NEW_URL_STRING);
-
-            stayed_html = Jsoup.parse(STAYED_CONTENT);
-            modified_old_html = Jsoup.parse(MODIFIED_CONTENT_OLD);
-            removed_html = Jsoup.parse(REMOVED_CONTENT);
-            modified_new_html = Jsoup.parse(MODIFIED_CONTENT_NEW);
-            new_html = Jsoup.parse(NEW_CONTENT);
-
-            yesterdayContent.put(stayed_url, stayed_html);
-            yesterdayContent.put(modified_url, modified_old_html);
-            yesterdayContent.put(removed_url, removed_html);
-
-            todayContent.put(stayed_url, stayed_html);
-            todayContent.put(modified_url, modified_new_html);
-            todayContent.put(new_url, new_html);
         } catch (MalformedURLException ex) {
             System.err.println(URL_CREATE_EXCEPTION);
             System.err.println(ex.getMessage());
         }
+    }
+
+    /**
+     * Makes HTML documents from Strings
+     */
+    private static void makeDocuments() {
+        stayed_html = Jsoup.parse(STAYED_CONTENT);
+        modified_old_html = Jsoup.parse(MODIFIED_CONTENT_OLD);
+        removed_html = Jsoup.parse(REMOVED_CONTENT);
+        modified_new_html = Jsoup.parse(MODIFIED_CONTENT_NEW);
+        new_html = Jsoup.parse(NEW_CONTENT);
+    }
+
+    /**
+     * Puts prepared values into HashMaps
+     */
+    private static void putValuesIntoHashMaps() {
+        yesterdayContent.put(stayed_url, stayed_html);
+        yesterdayContent.put(modified_url, modified_old_html);
+        yesterdayContent.put(removed_url, removed_html);
+
+        todayContent.put(stayed_url, stayed_html);
+        todayContent.put(modified_url, modified_new_html);
+        todayContent.put(new_url, new_html);
     }
 }
