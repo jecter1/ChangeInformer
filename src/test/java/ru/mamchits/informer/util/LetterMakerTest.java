@@ -1,6 +1,7 @@
-package ru.mamchits.informer;
+package ru.mamchits.informer.util;
 
 import org.junit.Test;
+import ru.mamchits.informer.util.LetterMaker;
 
 import java.util.HashSet;
 import java.util.Set;

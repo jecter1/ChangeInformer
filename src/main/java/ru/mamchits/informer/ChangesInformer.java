@@ -1,6 +1,7 @@
 package ru.mamchits.informer;
 
 import ru.mamchits.informer.util.ChangesDetector;
+import ru.mamchits.informer.util.LetterMaker;
 
 import java.util.Map;
 import java.util.Set;

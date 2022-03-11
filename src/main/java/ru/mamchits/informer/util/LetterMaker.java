@@ -1,4 +1,4 @@
-package ru.mamchits.informer;
+package ru.mamchits.informer.util;
 
 import java.io.FileReader;
 import java.io.IOException;

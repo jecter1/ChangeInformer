@@ -1,10 +1,13 @@
 package ru.mamchits;
 
 import ru.mamchits.informer.ChangesInformer;
-import ru.mamchits.informer.LetterMaker.Gender;
+import ru.mamchits.informer.util.LetterMaker.Gender;
 
 import java.util.HashMap;
 
+/**
+ * App is a class for a simple demonstration of how ChangesInformer works
+ */
 public class App {
     private static final String LETTER_TEMPLATE_PROPERTIES_PATH = "src/main/resources/letter.properties";
 
