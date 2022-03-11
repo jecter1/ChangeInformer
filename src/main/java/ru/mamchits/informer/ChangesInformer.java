@@ -3,6 +3,7 @@ package ru.mamchits.informer;
 import ru.mamchits.informer.util.ChangesDetector;
 import ru.mamchits.informer.util.LetterMaker;
 
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,9 +11,9 @@ import java.util.Set;
  * ChangesInformer is class for informing secretaries about changes on the pages assigned to them
  */
 public class ChangesInformer {
-    private Set<String> newPages;
-    private Set<String> removedPages;
-    private Set<String> modifiedPages;
+    private Set<URL> newPages;
+    private Set<URL> removedPages;
+    private Set<URL> modifiedPages;
 
     private final LetterMaker letterMaker;
 
@@ -40,7 +41,7 @@ public class ChangesInformer {
      * @param  prevMap  previous page states
      * @param  curMap   previous page states
      */
-    public void updateChanges(Map<String, String> prevMap, Map<String, String> curMap) {
+    public void updateChanges(Map<URL, String> prevMap, Map<URL, String> curMap) {
         newPages = ChangesDetector.getNewUrls(prevMap, curMap);
         removedPages = ChangesDetector.getRemovedUrls(prevMap, curMap);
         modifiedPages = ChangesDetector.getModifiedUrls(prevMap, curMap);

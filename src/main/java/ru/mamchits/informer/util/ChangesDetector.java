@@ -1,5 +1,6 @@
 package ru.mamchits.informer.util;
 
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -20,9 +21,9 @@ public final class ChangesDetector {
      * @param  curMap   current page states
      * @return          set of page URLs that are present only in the curMap
      */
-    public static Set<String> getNewUrls(Map<String, String> prevMap, Map<String, String> curMap) {
-        Set<String> prevUrls = new HashSet<>(prevMap.keySet());
-        Set<String> curUrls = new HashSet<>(curMap.keySet());
+    public static Set<URL> getNewUrls(Map<URL, String> prevMap, Map<URL, String> curMap) {
+        Set<URL> prevUrls = new HashSet<>(prevMap.keySet());
+        Set<URL> curUrls = new HashSet<>(curMap.keySet());
         curUrls.removeAll(prevUrls);
         return curUrls;
     }
@@ -33,9 +34,9 @@ public final class ChangesDetector {
      * @param  curMap   current page states
      * @return          set of page URLs that are present only in the prevMap
      */
-    public static Set<String> getRemovedUrls(Map<String, String> prevMap, Map<String, String> curMap) {
-        Set<String> prevUrls = new HashSet<>(prevMap.keySet());
-        Set<String> curUrls = new HashSet<>(curMap.keySet());
+    public static Set<URL> getRemovedUrls(Map<URL, String> prevMap, Map<URL, String> curMap) {
+        Set<URL> prevUrls = new HashSet<>(prevMap.keySet());
+        Set<URL> curUrls = new HashSet<>(curMap.keySet());
         prevUrls.removeAll(curUrls);
         return prevUrls;
     }
@@ -46,8 +47,8 @@ public final class ChangesDetector {
      * @param  curMap   current page states
      * @return          set of page URLs for which the HTML codes are different
      */
-    public static Set<String> getModifiedUrls(Map<String, String> prevMap, Map<String, String> curMap) {
-        Set<String> stayedUrls = getStayedUrls(prevMap, curMap);
+    public static Set<URL> getModifiedUrls(Map<URL, String> prevMap, Map<URL, String> curMap) {
+        Set<URL> stayedUrls = getStayedUrls(prevMap, curMap);
         stayedUrls.removeIf(url -> prevMap.get(url).equals(curMap.get(url)));
         return stayedUrls;
     }
@@ -58,9 +59,9 @@ public final class ChangesDetector {
      * @param  curMap   current page states
      * @return          set of page URLs for which the HTML codes are the same in both states
      */
-    private static Set<String> getStayedUrls(Map<String, String> prevMap, Map<String, String> curMap) {
-        Set<String> prevUrls = new HashSet<>(prevMap.keySet());
-        Set<String> curUrls = new HashSet<>(curMap.keySet());
+    private static Set<URL> getStayedUrls(Map<URL, String> prevMap, Map<URL, String> curMap) {
+        Set<URL> prevUrls = new HashSet<>(prevMap.keySet());
+        Set<URL> curUrls = new HashSet<>(curMap.keySet());
         prevUrls.retainAll(curUrls);
         return prevUrls;
     }

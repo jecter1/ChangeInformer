@@ -2,6 +2,7 @@ package ru.mamchits.informer.util;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class LetterMaker {
      * @return               letter for secretary
      */
     public String make(Gender gender, String name, String patronymic,
-                       Set<String> removedUrls, Set<String> newUrls, Set<String> modifiedUrls) {
+                       Set<URL> removedUrls, Set<URL> newUrls, Set<URL> modifiedUrls) {
         return makeHead(gender, name, patronymic) +
                 makeBody(removedUrls, newUrls, modifiedUrls) +
                 letterProperties.getProperty(SIGNATURE_PROPERTY);
@@ -101,7 +102,7 @@ public class LetterMaker {
      * @param  modifiedUrls  set of page URLs for which the HTML codes are different
      * @return               body of the letter
      */
-    private String makeBody(Set<String> removedUrls, Set<String> newUrls, Set<String> modifiedUrls) {
+    private String makeBody(Set<URL> removedUrls, Set<URL> newUrls, Set<URL> modifiedUrls) {
         if (allSetsAreEmpty(removedUrls, newUrls, modifiedUrls)) {
             return letterProperties.getProperty(NO_CHANGES_BODY_PROPERTY) +
                     letterProperties.getProperty(LETTER_PART_SEPARATOR_PROPERTY);
@@ -120,7 +121,7 @@ public class LetterMaker {
      * @param  modifiedUrls  set of page URLs for which the HTML codes are different
      * @return               True if all sets are empty
      */
-    private boolean allSetsAreEmpty(Set<String> removedUrls, Set<String> newUrls, Set<String> modifiedUrls) {
+    private boolean allSetsAreEmpty(Set<URL> removedUrls, Set<URL> newUrls, Set<URL> modifiedUrls) {
         return (removedUrls.isEmpty() && newUrls.isEmpty() && modifiedUrls.isEmpty());
     }
 
@@ -130,7 +131,7 @@ public class LetterMaker {
      * @param  urls     set of URLs
      * @return          part of letter that contains a list of URLs
      */
-    private String makeUrlListString(String prefix, Set<String> urls) {
+    private String makeUrlListString(String prefix, Set<URL> urls) {
         if (urls.isEmpty()) {
             return EMPTY_STRING;
         }
@@ -138,7 +139,7 @@ public class LetterMaker {
         stringBuilder.append(prefix);
         for (var url: urls) {
             stringBuilder.append(letterProperties.getProperty(LIST_ELEMENT_PREFIX_PROPERTY))
-                    .append(url);
+                         .append(url.toString());
         }
         stringBuilder.append(letterProperties.getProperty(LETTER_PART_SEPARATOR_PROPERTY));
         return stringBuilder.toString();
