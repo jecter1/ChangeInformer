@@ -20,9 +20,9 @@ public class LetterMakerTest {
                         
                         С уважением, автоматизированная система мониторинга.""";
 
-    private static final String REMOVED_URL = "removed_url";
-    private static final String NEW_URL = "new_url";
-    private static final String MODIFIED_URL = "modified_url";
+    private static final String REMOVED_URL = "www.removed.com";
+    private static final String NEW_URL = "www.new.com";
+    private static final String MODIFIED_URL = "www.modified.com";
 
     private static final String LETTER_FROM_TEMPLATE_MANUALLY_WITH_CHANGES = """
                         Здравствуйте, дорогая Наталья Юрьевна!
@@ -30,13 +30,13 @@ public class LetterMakerTest {
                         За последние сутки во вверенных Вам сайтах произошли следующие изменения:
                         
                         Исчезли следующие страницы:
-                        \tremoved_url
+                        \twww.removed.com
                         
                         Появились следующие новые страницы:
-                        \tnew_url
+                        \twww.new.com
                         
                         Изменились следующие страницы:
-                        \tmodified_url
+                        \twww.modified.com
                         
                         С уважением, автоматизированная система мониторинга.""";
 

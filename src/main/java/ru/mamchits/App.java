@@ -11,17 +11,17 @@ public class App {
     private static final String TEST_SECRETARY_NAME = "Наталья";
     private static final String TEST_SECRETARY_PATRONYMIC = "Юрьевна";
 
-    private static final String STAYED_URL = "stayed_url";
+    private static final String STAYED_URL = "www.stayed.com";
     private static final String STAYED_CONTENT = "stayed_content";
 
-    private static final String REMOVED_URL = "removed_url";
+    private static final String REMOVED_URL = "www.removed.com";
     private static final String REMOVED_CONTENT = "removed_content";
 
-    private static final String MODIFIED_URL = "modified_url";
+    private static final String MODIFIED_URL = "www.modified.com";
     private static final String MODIFIED_CONTENT_OLD = "modified_content_old";
     private static final String MODIFIED_CONTENT_NEW = "modified_content_new";
 
-    private static final String NEW_URL = "new_url";
+    private static final String NEW_URL = "www.new.com";
     private static final String NEW_CONTENT = "new_content";
 
     private static final HashMap<String, String> yesterdayContent = new HashMap<>();
