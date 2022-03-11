@@ -3,6 +3,8 @@ package ru.mamchits;
 import ru.mamchits.informer.ChangesInformer;
 import ru.mamchits.informer.util.LetterMaker;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -32,8 +34,8 @@ public class App {
 
     private static final String URL_CREATE_EXCEPTION = "Failed to make URLs from Strings";
 
-    private static final HashMap<URL, String> yesterdayContent = new HashMap<>();
-    private static final HashMap<URL, String> todayContent = new HashMap<>();
+    private static final HashMap<URL, Document> yesterdayContent = new HashMap<>();
+    private static final HashMap<URL, Document> todayContent = new HashMap<>();
 
     public static void main(String[] args) {
         fillHashMaps();
@@ -47,19 +49,26 @@ public class App {
      */
     private static void fillHashMaps() {
         URL stayed_url, removed_url, modified_url, new_url;
+        Document stayed_html, removed_html, modified_old_html, modified_new_html, new_html;
         try {
             stayed_url = new URL(STAYED_URL_STRING);
             removed_url = new URL(REMOVED_URL_STRING);
             modified_url = new URL(MODIFIED_URL_STRING);
             new_url = new URL(NEW_URL_STRING);
 
-            yesterdayContent.put(stayed_url, STAYED_CONTENT);
-            yesterdayContent.put(modified_url, MODIFIED_CONTENT_OLD);
-            yesterdayContent.put(removed_url, REMOVED_CONTENT);
+            stayed_html = Jsoup.parse(STAYED_CONTENT);
+            modified_old_html = Jsoup.parse(MODIFIED_CONTENT_OLD);
+            removed_html = Jsoup.parse(REMOVED_CONTENT);
+            modified_new_html = Jsoup.parse(MODIFIED_CONTENT_NEW);
+            new_html = Jsoup.parse(NEW_CONTENT);
 
-            todayContent.put(stayed_url, STAYED_CONTENT);
-            todayContent.put(modified_url, MODIFIED_CONTENT_NEW);
-            todayContent.put(new_url, NEW_CONTENT);
+            yesterdayContent.put(stayed_url, stayed_html);
+            yesterdayContent.put(modified_url, modified_old_html);
+            yesterdayContent.put(removed_url, removed_html);
+
+            todayContent.put(stayed_url, stayed_html);
+            todayContent.put(modified_url, modified_new_html);
+            todayContent.put(new_url, new_html);
         } catch (MalformedURLException ex) {
             System.err.println(URL_CREATE_EXCEPTION);
             System.err.println(ex.getMessage());

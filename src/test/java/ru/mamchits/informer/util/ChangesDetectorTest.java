@@ -1,5 +1,7 @@
 package ru.mamchits.informer.util;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.*;
 
 import java.net.MalformedURLException;
@@ -25,8 +27,8 @@ public class ChangesDetectorTest {
 
     private static final int URL_COUNT_EACH_GROUP = 1;
 
-    private static final HashMap<URL, String> yesterdayContent = new HashMap<>();
-    private static final HashMap<URL, String> todayContent = new HashMap<>();
+    private static final HashMap<URL, Document> yesterdayContent = new HashMap<>();
+    private static final HashMap<URL, Document> todayContent = new HashMap<>();
 
     private static URL stayed_url;
     private static URL removed_url;
@@ -56,12 +58,18 @@ public class ChangesDetectorTest {
 
     @Before
     public void fillHashMaps() {
-        yesterdayContent.put(stayed_url, STAYED_CONTENT);
-        yesterdayContent.put(modified_url, MODIFIED_CONTENT_OLD);
-        yesterdayContent.put(removed_url, REMOVED_CONTENT);
-        todayContent.put(stayed_url, STAYED_CONTENT);
-        todayContent.put(modified_url, MODIFIED_CONTENT_NEW);
-        todayContent.put(new_url, NEW_CONTENT);
+        Document stayed_html = Jsoup.parse(STAYED_CONTENT);
+        Document modified_old_html = Jsoup.parse(MODIFIED_CONTENT_OLD);
+        Document removed_html = Jsoup.parse(REMOVED_CONTENT);
+        Document modified_new_html = Jsoup.parse(MODIFIED_CONTENT_NEW);
+        Document new_html = Jsoup.parse(NEW_CONTENT);
+
+        yesterdayContent.put(stayed_url, stayed_html);
+        yesterdayContent.put(modified_url, modified_old_html);
+        yesterdayContent.put(removed_url, removed_html);
+        todayContent.put(stayed_url, stayed_html);
+        todayContent.put(modified_url, modified_new_html);
+        todayContent.put(new_url, new_html);
     }
 
     @Before

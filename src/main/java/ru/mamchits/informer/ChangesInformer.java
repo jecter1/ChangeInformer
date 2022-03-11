@@ -1,5 +1,6 @@
 package ru.mamchits.informer;
 
+import org.jsoup.nodes.Document;
 import ru.mamchits.informer.util.ChangesDetector;
 import ru.mamchits.informer.util.LetterMaker;
 
@@ -41,7 +42,7 @@ public class ChangesInformer {
      * @param  prevMap  previous page states
      * @param  curMap   previous page states
      */
-    public void updateChanges(Map<URL, String> prevMap, Map<URL, String> curMap) {
+    public void updateChanges(Map<URL, Document> prevMap, Map<URL, Document> curMap) {
         newPages = ChangesDetector.getNewUrls(prevMap, curMap);
         removedPages = ChangesDetector.getRemovedUrls(prevMap, curMap);
         modifiedPages = ChangesDetector.getModifiedUrls(prevMap, curMap);
